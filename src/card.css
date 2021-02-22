@@ -1,0 +1,29 @@
+.outer-box {
+  width: 300px;
+  height: 400px;
+  background-color: none;
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+  
+}
+
+.book-title {
+  align-items: center;
+  width: 200px;
+  height: 270px;
+  object-fit: cover;
+}
+
+.title-card {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Times New Roman", Times, serif;
+  margin-top: 18px;
+  margin-bottom: 14px;
+  padding: 0px;
+}
+
+.writer {
+  font-size: 18px;
+}

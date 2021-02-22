@@ -1,0 +1,84 @@
+.container {
+  min-width: 1440px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+}
+
+.detail-book {
+  margin-top: 142px;
+}
+
+.detail-image {
+  width: 370px;
+  height: 540px;
+  object-fit: cover;
+}
+
+.title {
+  font-family: Times New Roman;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 77px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.writer {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(146, 146, 146, 1);
+}
+
+.upper {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.lower {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(146, 146, 146, 1);
+}
+
+.bawah {
+  margin-top: 118px;
+}
+
+.title-about {
+  font-family: Times New Roman;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 43px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.text-about {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: justified;
+  color: rgba(146, 146, 146, 1);
+}
+
+.price-tag {
+  color: #44b200;
+}
+
+.isbn-tag {
+  color: #d60000;
+}

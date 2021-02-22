@@ -1,0 +1,11 @@
+.alignleft {
+  display: block;
+}
+.alignright {
+  display: block;
+  float: right;
+}
+
+.price-tag {
+  color: #44b200;
+}
