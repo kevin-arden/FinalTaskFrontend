@@ -43,9 +43,7 @@ const LandingPage = () => {
     getBook();
   }, []);
 
-  return loading ? (
-    <div class="loader">Loading...</div>
-  ) : (
+  return (
     <div>
       <NavBar />
       <div
@@ -66,8 +64,7 @@ const LandingPage = () => {
         <div className="row">
           <div className="col-md-12 best-content">
             <div>
-              {books.map((book, index) => 
-              (
+              {books.map((book, index) => (
                 <BestSeller book={book} key={book.id} />
               ))}
             </div>
@@ -76,7 +73,7 @@ const LandingPage = () => {
         <div className="row" style={{ marginTop: "60px" }}>
           <div className="col-md-12 outer-book-content">
             <div>
-              <h1 style={{marginBottom: "40px"}}>List Book</h1>
+              <h1 style={{ marginBottom: "40px" }}>List Book</h1>
               <div className="book-content">
                 {books.map((book, index) => (
                   <Card book={book} key={book.id} />
