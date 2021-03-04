@@ -146,7 +146,7 @@ const TransactionPage = () => {
                   <th>Name</th>
                   <th>Transfer Proof</th>
                   <th>Product Purchased</th>
-                  <th>Status User</th>
+                  <th>Total payment</th>
                   <th>Status Payment</th>
                   <th>Action</th>
                 </tr>

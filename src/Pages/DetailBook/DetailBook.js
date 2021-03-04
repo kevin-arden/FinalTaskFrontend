@@ -32,6 +32,7 @@ const DetailBook = () => {
   const history = useHistory();
   const { id } = useParams();
   const handleClose = () => setShow(false);
+
   const getDetailBook = async () => {
     try {
       setLoading(true);
@@ -73,8 +74,11 @@ const DetailBook = () => {
     // }
   }, []);
 
+
+
   console.log(user);
   console.log(owned);
+  console.log(book.bookAttachment)
 
   const addProductToCart = async () => {
     const product = book;
@@ -88,9 +92,13 @@ const DetailBook = () => {
 
   const downloadBook = async (e) => {
     e.preventDefault();
+    try {
+     
+      await API.get(`/pdf/${id}`);
 
-    const file = book.bookAttachment;
-    window.open(file);
+     } catch (err) {
+      console.log(err);
+    }
   };
 
   return loading ? (
@@ -136,16 +144,20 @@ const DetailBook = () => {
             <div className="col-md-9"></div>
             <div style={{ marginBottom: "20px" }} className="col-md-3">
               {owned ? (
-                <button
-                  onClick={(e) => downloadBook(e)}
-                  className="btn btn-primary btn-block"
-                  style={{
-                    backgroundColor: "#393939",
-                    borderColor: "#393939",
-                  }}
+                <a
+                  href={`http://localhost:5000/pdf/${book.bookAttachment}`}
                 >
-                  Download Book
-                </button>
+                  <button
+                    // onClick={(e) => downloadBook(e)}
+                    className="btn btn-primary btn-block"
+                    style={{
+                      backgroundColor: "#393939",
+                      borderColor: "#393939",
+                    }}
+                  >
+                    Download Book
+                  </button>
+                </a>
               ) : (
                 <button
                   onClick={() => addProductToCart()}

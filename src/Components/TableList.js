@@ -20,7 +20,7 @@ const TableList = ({ transaction, index, approved, cancelled }) => {
           />
         )}
       </td>
-      <td></td>
+      <td>{transaction.bookCart}</td>
       <td>{transaction.totalPayment}</td>
       <td
         style={{

@@ -74,6 +74,7 @@ const LandingPage = () => {
           <div className="col-md-12 outer-book-content">
             <div>
               <h1 style={{ marginBottom: "40px" }}>List Book</h1>
+              
               <div className="book-content">
                 {books.map((book, index) => (
                   <Card book={book} key={book.id} />

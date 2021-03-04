@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { API } from "../../Config/api";
 
 import EditProfile from "../../Components/EditProfileComp";
-import Card from "../../Components/Card";
+import BookOwnedCard from "../../Components/BookOwnedCard";
 
 //Icon
 import mail from "../../Icon/mail.png";
@@ -173,7 +173,7 @@ const ProfilePage = () => {
               <p className="profile">My List Book</p>
               <div className="book-content">
                 {booksOwned.map((book) => (
-                  <Card book={book} key={booksOwned.map((e) => e)} />
+                  <BookOwnedCard book={book} key={booksOwned.map((e) => e)} />
                 ))}
               </div>
             </div>
