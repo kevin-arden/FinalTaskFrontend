@@ -6,7 +6,7 @@ import NavBar from "../../Components/NavBar";
 import { API } from "../../Config/api";
 import inputLogo from "../../Icon/inputIcon.svg";
 import background from "../../Icon/background.png";
-import placeholder from "../../Icon/no_cover.jpg";
+import placeholder from "../../Icon/attachTransaction.svg";
 import "./CartPage.css";
 import "../../insertImage.css";
 

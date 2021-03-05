@@ -5,6 +5,7 @@ const initialState = {
   isLogin: false,
   isAdmin: false,
   userLogin: {},
+  bookOwned: null,
 };
 
 const reducer = (state, action) => {

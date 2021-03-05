@@ -11,7 +11,7 @@ import { AppContext } from "../Context/globalContext";
 const Card = ({ book }) => {
   const [state] = useContext(AppContext);
 
-  const { id, thumbnail, title, author } = book;
+  const { id, thumbnail, title, author, price } = book;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -41,8 +41,9 @@ const Card = ({ book }) => {
           />
         </div>
         <div>
-          <p className="title-card">{title}</p>
+          <p className="title-card-book">{title}</p>
           <p className="writer">{author}</p>
+          <p className="price-tag">Rp {price}</p>
         </div>
       </div>
     </div>

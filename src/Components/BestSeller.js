@@ -39,7 +39,7 @@ const BestSeller = ({ book }) => {
 
   const history = useHistory();
   return (
-    <div style={{ width: "500px", height: "400px", display: "inline-block" }}>
+    <div style={{ width: "750px", height: "550px", display: "inline-block" }}>
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Body style={{ color: "red" }}>
           please make a payment to read the latest books
@@ -49,9 +49,7 @@ const BestSeller = ({ book }) => {
       <div
         className="best-box container-fluid"
         key={id}
-        onClick={() =>
-          appState.isLogin ? {} : handleShow
-        }
+        onClick={() => (appState.isLogin ? {} : handleShow)}
       >
         <div className="row">
           <div className="col-md-6">
