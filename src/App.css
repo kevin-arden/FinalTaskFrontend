@@ -1,0 +1,55 @@
+.col-22-5 {
+  width: 22.5%;
+}
+
+.col-77-5 {
+  width: 77.5%;
+}
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sign-header {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 36px;
+  margin-top: 25px;
+  margin-bottom: 29px;
+  padding: 0;
+}

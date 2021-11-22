@@ -1,0 +1,48 @@
+.best-box {
+  background-color: none;
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.best-content {
+  cursor: pointer;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.best-title {
+  align-items: center;
+  width: 350px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.title-card {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Times New Roman", Times, serif;
+  margin-top: 18px;
+  margin-bottom: 14px;
+  padding: 0px;
+}
+
+.writer {
+  font-size: 18px;
+}
+
+.content {
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 300px;
+  height: 100px;
+  overflow: hidden !important;
+  
+}
+
+
+.price {
+  color: #44b200;
+  word-wrap: break-word;
+}

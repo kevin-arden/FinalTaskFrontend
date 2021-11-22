@@ -1,0 +1,26 @@
+.navbarContainer {
+  margin-right: 84px;
+  margin-left: 84px;
+}
+
+.cartNumber {
+  background-color: red;
+  color: white;
+  overflow: hidden;
+  border-radius: 50px;
+}
+
+.cartLogo {
+  float: left; /* add this */
+}
+
+.navbarLogo {
+  margin-top: 26px;
+}
+
+.navbarButton {
+  width: 100px;
+  height: 30px;
+  border-color: #393939;
+  margin-right: 10px;
+}
