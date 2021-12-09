@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "cloudinary-react";
 
 const TableList = ({ transaction, index, approved, cancelled }) => {
   return (
@@ -7,11 +8,13 @@ const TableList = ({ transaction, index, approved, cancelled }) => {
       <td>{transaction.user.fullName}</td>
       <td>
         {transaction.attachment ? (
-          <img
-            src={`http://localhost:5000/image/${transaction.attachment}`}
-            alt={transaction.attachment}
-            style={{ width: "300px", height: "300px" }}
-          />
+          <a href={transaction.attachment} target="_blank">
+            <Image
+              style={{ height: 150, width: 200 }}
+              cloudName="kev-cloud"
+              publicId={transaction.attachment}
+            />
+          </a>
         ) : (
           <img
             src={`https://piotrkowalski.pw/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png`}

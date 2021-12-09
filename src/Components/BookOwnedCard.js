@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+import { Image } from "cloudinary-react";
 
 //css
 import "../card.css";
@@ -35,10 +36,10 @@ const BookOwnedCard = ({ book }) => {
         }
       >
         <div>
-          <img
-            className="book-title"
-            src={`http://localhost:5000/image/${thumbnail}`}
-            alt=""
+          <Image
+            style={{ height: 270, width: 200 }}
+            cloudName="kev-cloud"
+            publicId={book.image_id}
           />
         </div>
         <div>
@@ -47,7 +48,10 @@ const BookOwnedCard = ({ book }) => {
         </div>
       </div>
       <div>
-        <a href={`http://localhost:5000/pdf/${bookAttachment}`}>
+        {/* <a href={`http://localhost:5000/pdf/${bookAttachment}`}> */}
+        <a
+          href={bookAttachment} target="_blank"
+        >
           <button
             // onClick={(e) => downloadBook(e)}
             className="btn btn-primary btn-block"

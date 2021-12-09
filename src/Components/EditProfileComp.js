@@ -57,9 +57,9 @@ const editProfile = ({ closingModalEditProfile }) => {
       // body.append("avatar", avatar);
 
       const body2 = JSON.stringify({
-        email,
-        gender,
-        phone,
+        email: email,
+        gender: gender,
+        phone: phone,
       });
 
       const config = {
@@ -69,8 +69,8 @@ const editProfile = ({ closingModalEditProfile }) => {
       };
 
       setLoading(true);
-
-      const user = await API.patch("/user", body2, config);
+      console.log(body2);
+      await API.patch("/user", body2, config);
 
       await API.get("/profile");
       getProfile();
@@ -84,7 +84,7 @@ const editProfile = ({ closingModalEditProfile }) => {
         avatar: "",
       });
 
-      console.log(user);
+      // console.log(user);
     } catch (err) {
       console.log(err);
     }
@@ -141,6 +141,7 @@ const editProfile = ({ closingModalEditProfile }) => {
               </div> */}
           <div className="form-group">
             <button
+              type="submit"
               className="btn"
               onClick={() => closingModalEditProfile()}
               style={{

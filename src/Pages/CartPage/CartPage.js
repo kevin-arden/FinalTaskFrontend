@@ -9,6 +9,7 @@ import background from "../../Icon/background.png";
 import placeholder from "../../Icon/attachTransaction.svg";
 import "./CartPage.css";
 import "../../insertImage.css";
+import Axios from "axios";
 
 const Cart = () => {
    const [{ alt, src }, setImg] = useState({
@@ -54,10 +55,22 @@ const Cart = () => {
 
     try {
       const body = new FormData();
-
+      const image = new FormData()
       body.append("totalPayment", totalPrice);
-      body.append("attachment", attachment);
       body.append("bookCart", bookCart);
+      image.append("upload_preset", "myof9r9y");
+      image.append("file", attachment);
+      // body.append("attachment", attachment)
+      
+      // setLoading(true);
+      await Axios.post(
+        "https://api.cloudinary.com/v1_1/kev-cloud/image/upload",
+        image
+      ).then((response) => {
+        body.append("attachment", response.data.url);
+      });
+      // await API.post("/book", body, config);
+      // setLoading(false);
 
       console.log(bookCart);
 
@@ -68,7 +81,7 @@ const Cart = () => {
       };
 
       setLoading(true);
-      const buy = await API.post("/transaction", body, config);
+      await API.post("/transaction", body, config);
       setLoading(false);
 
       setCartForm({
@@ -89,7 +102,6 @@ const Cart = () => {
 
       setShow(true);
 
-      console.log(buy);
     } catch (err) {
       console.log(err);
     }
@@ -107,102 +119,108 @@ const Cart = () => {
   };
 
   return (
-    <div
-      className="container-fluid"
-      style={{
-        backgroundImage: `url(${background})`,
-        borderColor: "#F3F3F3",
-        height: "100%",
-      }}
-    >
+    <div>
       <NavBar />
-      <div className="cart-content">
-        <div className="row row-header">
-          <div className="col-md-12">
-            <h1>My Cart</h1>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8">
-            <h3>Review Your Order</h3>
-            <hr style={{ backgroundColor: "black" }} />
-
-            <ul class="list-group">
-              {carts.length > 0 ? (
-                carts.map((product) => (
-                  <List
-                    key={product.id}
-                    product={product}
-                    removeProductFromCart={removeProductFromCart}
-                  />
-                ))
-              ) : (
-                <h1 style={{ textAlign: "center" }}>Your Cart is Empty</h1>
-              )}
-            </ul>
-            <hr style={{ backgroundColor: "black" }} />
+      <div
+        className="container-fluid"
+        style={{
+          backgroundImage: `url(${background})`,
+          borderColor: "#F3F3F3",
+          height: "100%",
+        }}
+      >
+        <div className="cart-content">
+          <div className="row row-header">
+            <div className="col-md-12">
+              <h1>My Cart</h1>
+            </div>
           </div>
 
-          <div className="col-md-4">
-            <h3 className="mb-3">Checkout</h3>
-            <hr style={{ backgroundColor: "black" }} />
-            <form onSubmit={(e) => onSubmit(e)}>
-              <p className="alignleft">
-                Subtotal<p className="alignright">{totalPrice}</p>
-              </p>
-
-              <p className="alignleft">
-                Qty <p className="alignright">{qty}</p>
-              </p>
-
+          <div className="row">
+            <div className="col-md-8">
+              <h3>Review Your Order</h3>
               <hr style={{ backgroundColor: "black" }} />
 
-              <p className="price-tag alignleft">
-                Total Price <p className="alignright">{totalPrice}</p>
-              </p>
+              <ul class="list-group">
+                {carts.length > 0 ? (
+                  carts.map((product) => (
+                    <List
+                      key={product.id}
+                      product={product}
+                      removeProductFromCart={removeProductFromCart}
+                    />
+                  ))
+                ) : (
+                  <h1 style={{ textAlign: "center" }}>Your Cart is Empty</h1>
+                )}
+              </ul>
+              <hr style={{ backgroundColor: "black" }} />
+            </div>
 
-              <div className="form-group">
-                <input
-                  name="attachment"
-                  onChange={(e) => onChange(e)}
-                  onInput={handleImg}
-                  type="file"
-                  id="actual-btn3"
-                  className="form-control"
-                  placeholder="Attach proof of transfer"
-                  hidden
-                />
+            <div className="col-md-4">
+              <h3 className="mb-3">Checkout</h3>
+              <hr style={{ backgroundColor: "black" }} />
+              <form onSubmit={(e) => onSubmit(e)}>
+                <p className="alignleft">
+                  Subtotal<p className="alignright">{totalPrice}</p>
+                </p>
 
-                <label for="actual-btn3">
-                  <img src={src} alt={alt} className="form-img__img-preview" />
-                </label>
-              </div>
-              <div className="form-group">
-                <button
-                  className="btn btn-block"
-                  type="submit"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    marginTop: "36px",
-                    marginBottom: "21px",
-                    color: "white",
-                    backgroundColor: "#393939",
-                  }}
-                >
-                  Pay
-                </button>
-              </div>
-            </form>
+                <p className="alignleft">
+                  Qty <p className="alignright">{qty}</p>
+                </p>
+
+                <hr style={{ backgroundColor: "black" }} />
+
+                <p className="price-tag alignleft">
+                  Total Price <p className="alignright">{totalPrice}</p>
+                </p>
+
+                <div className="form-group">
+                  <input
+                    name="attachment"
+                    onChange={(e) => onChange(e)}
+                    onInput={handleImg}
+                    type="file"
+                    id="actual-btn3"
+                    className="form-control"
+                    placeholder="Attach proof of transfer"
+                    hidden
+                  />
+
+                  <label for="actual-btn3">
+                    <img
+                      src={src}
+                      alt={alt}
+                      className="form-img__img-preview"
+                    />
+                  </label>
+                </div>
+                <div className="form-group">
+                  <button
+                    className="btn btn-block"
+                    type="submit"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      marginTop: "36px",
+                      marginBottom: "21px",
+                      color: "white",
+                      backgroundColor: "#393939",
+                    }}
+                  >
+                    Pay
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <Modal show={show} onHide={handleClose} centered>
+              <Modal.Body style={{ color: "#29BD11" }}>
+                Thank you for ordering in us, please wait 1 x 24 hours to verify
+                you order
+              </Modal.Body>
+            </Modal>
           </div>
-
-          <Modal show={show} onHide={handleClose} centered>
-            <Modal.Body style={{ color: "#29BD11" }}>
-              Thank you for ordering in us, please wait 1 x 24 hours to verify
-              you order
-            </Modal.Body>
-          </Modal>
         </div>
       </div>
     </div>

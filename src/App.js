@@ -38,9 +38,8 @@ function App() {
               
               <PrivateRoute path="/profile" exact component={ProfilePage} />
               <PrivateRoute path="/cart" exact component={Cart} />
-              {/* <PrivateRoute path="/subscribe" exact component={SubscribePage} /> */}
               <PrivateRoute path="/book/:id" exact component={DetailBook} />
-              {/* <PrivateRoute path="/read/:rid" exact component={ReadBook} /> */}
+           
               <PrivateRouteAdmin
                 path="/transaction"
                 exact

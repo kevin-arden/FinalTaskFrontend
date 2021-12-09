@@ -1,3 +1,52 @@
 .label[for="actual-btn"] {
   width: 200px;
 }
+
+.transaction-body {
+  margin-left: 60px;
+  margin-right: auto;
+}
+
+.upload_button {
+  border-style: solid;
+  border-color: #bcbcbc;
+  border-width: 2px;
+  background-color: rgba(188, 188, 188, 0.25);
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.grid-container {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  /* padding-right: 10px; */
+}
+
+.form-group {
+  padding: 10px;
+  margin: 0px;
+}
+
+.menu-align-right {
+  float: right;
+  padding: 0;
+}
+
+.book-preview {
+  margin-bottom: 5px;
+  /* display: block */
+}
+
+img {
+  width: 200;
+  height: auto;
+}
+
+.book-preview>label,.book-preview>text,.book-preview>img {
+  display: block;
+}
+
+.filebook {
+  margin-bottom: 5px;
+}

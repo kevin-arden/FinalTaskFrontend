@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { API } from "../../Config/api";
 import Axios from "axios"
+import NavBar from "../../Components/NavBar";
+
 //Image
 import logoPic from "../../Icon/Icon.png";
 import profilePic from "../../Icon/ProfilePic.png";
@@ -21,7 +23,8 @@ import "../../spinner.css";
 const AddBook = () => {
   const history = useHistory();
   const [state, dispatch] = useContext(AppContext);
-
+  const [imageState, setImageState] = useState()
+  const [imageState2, setImageState2] = useState()
   const goTransaction = () => {
     history.push(`/transaction`);
   };
@@ -44,9 +47,19 @@ const AddBook = () => {
 
   const onChange = (e) => {
     const updateForm = { ...addBookFormData };
+    
+    if(e.target.name === "thumbnail" && e.target.files && e.target.files[0]){
+      let reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      setImageState({
+        image: URL.createObjectURL(e.target.files[0]),
+      })
+    }
     updateForm[e.target.name] =
       e.target.type === "file" ? e.target.files[0] : e.target.value;
     setAddBookFormData(updateForm);
+    console.log(updateForm)
+    
   };
 
   const {
@@ -69,7 +82,8 @@ const AddBook = () => {
 
     try {
       const body = new FormData();
-      const image = new FormData()
+      const image = new FormData();
+      const pdf_upload = new FormData();
       body.append("title", title);
       body.append("publicationDate", publicationDate);
       body.append("pages", pages);
@@ -77,10 +91,12 @@ const AddBook = () => {
       body.append("isbn", isbn);
       body.append("price", price);
       body.append("description", description);
-      body.append("bookAttachment", bookFile);
       // body.append("image_id", image_id);
       image.append("upload_preset", "myof9r9y");
       image.append("file", thumbnail);
+      
+      pdf_upload.append("upload_preset", "myof9r9y");
+      pdf_upload.append("file", bookFile);
       
       const config = {
         headers: {
@@ -90,12 +106,18 @@ const AddBook = () => {
 
       setLoading(true);
       await Axios.post("https://api.cloudinary.com/v1_1/kev-cloud/image/upload", image).then((response) => {
-        // const updateForm = { ...addBookFormData };
         body.append("image_id",response.data.url);
-        // setAddBookFormData(updateForm);
-        // console.log(addBookFormData)
       })
+      await Axios.post(
+        "https://api.cloudinary.com/v1_1/kev-cloud/image/upload",
+        pdf_upload
+      ).then((response) => {
+        body.append("bookAttachment", response.data.url);
+      });
       await API.post("/book", body, config);
+
+      
+      
       setLoading(false);
 
       setAddBookFormData({
@@ -118,174 +140,158 @@ const AddBook = () => {
   };
 
   return (
-    <div className="transaction-body">
-      <div className="container-fluid">
-        <div className="row">
-          <div>
-            <img className="logos" src={logoPic} alt="" />
-          </div>
-          <div className="col-md-10"></div>
-          <div>
-            <div class="dropdown">
-              <img className="foto" src={profilePic} alt="" />
-              <div class="dropdown-content">
-                <a onClick={goTransaction}>
-                  <img src={addBook} alt="" />
-                  Transaction
-                </a>
-                <a onClick={() => dispatch({ type: "LOGOUT" })}>
-                  <img src={logout} alt="" /> Logout
-                </a>
-              </div>
+    <div>
+      <NavBar />
+      <div className="transaction-body">
+        <div className="container-fluid">
+          <div className="row transaction-content">
+            <div className="col-md-12">
+              <p className="transaction-header">Add Book</p>
             </div>
           </div>
-        </div>
 
-        <div className="row transaction-content">
-          <div className="col-md-12">
-            <p className="transaction-header">Add Book</p>
+          <div className="row transaction-content">
+            <div className="col-md-12">
+              <form onSubmit={(e) => onSubmit(e)}>
+                <div className="form-group">
+                  <input
+                    name="title"
+                    value={title}
+                    onChange={(e) => onChange(e)}
+                    type="text"
+                    class="form-control"
+                    placeholder="Title"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    name="publicationDate"
+                    value={publicationDate}
+                    onChange={(e) => onChange(e)}
+                    type="text"
+                    class="form-control"
+                    placeholder="Publication Date"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    name="pages"
+                    value={pages}
+                    onChange={(e) => onChange(e)}
+                    type="text"
+                    class="form-control"
+                    placeholder="Pages"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    name="author"
+                    value={author}
+                    onChange={(e) => onChange(e)}
+                    type="text"
+                    class="form-control"
+                    placeholder="Author"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    name="isbn"
+                    value={isbn}
+                    onChange={(e) => onChange(e)}
+                    type="text"
+                    class="form-control"
+                    placeholder="ISBN"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    name="price"
+                    value={price}
+                    onChange={(e) => onChange(e)}
+                    type="text"
+                    class="form-control"
+                    placeholder="Price"
+                  />
+                </div>
+                <div className="form-group">
+                  <textarea
+                    name="description"
+                    value={description}
+                    onChange={(e) => onChange(e)}
+                    style={{
+                      borderStyle: "solid",
+                      borderColor: "#bcbcbc",
+                      borderWidth: "2px",
+                      height: "200px",
+                    }}
+                    type="textarea"
+                    class="form-control"
+                    placeholder="About This Book"
+                  />
+                </div>
+                <div className="grid-container">
+                  <div className="form-group">
+                    <input
+                      name="bookFile"
+                      onChange={(e) => onChange(e)}
+                      type="file"
+                      id="actual-btn"
+                      className="form-control"
+                      placeholder="Attach Book File"
+                      hidden
+                    />
+                    <label for="actual-btn" className="upload_button">
+                      Attache Book File
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      name="thumbnail"
+                      onChange={(e) => onChange(e)}
+                      type="file"
+                      id="actual-btn2"
+                      className="form-control"
+                      placeholder="Attach thumbnail"
+                      hidden
+                    />
+                    <label for="actual-btn2" className="btn upload_button">
+                      Attach thumbnail
+                    </label>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <div className="book-preview">
+                    <label for="filebook_preview">File:</label>
+                    <text className="filebook" id="filebook_preview">
+                      {addBookFormData.bookFile
+                        ? addBookFormData.bookFile.name
+                        : null}
+                    </text>
+                    <label for="img_preview">Image:</label>
+                    <img
+                      id="img_preview"
+                      src={imageState ? imageState.image : null}
+                      width="400"
+                    />
+                  </div>
+                </div>
+                <div className="menu-align-right">
+                  <div className="form-group">
+                    <button className="btn btn-danger" type="submit">
+                      Send{"  "}
+                      <img src={addBookWhite} alt="" />{" "}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
+          <Modal show={show} onHide={handleClose} centered>
+            <Modal.Body style={{ color: "#29BD11" }}>
+              Add Book Successful
+            </Modal.Body>
+          </Modal>
         </div>
-
-        <div className="row transaction-content">
-          <div className="col-md-12">
-            <form onSubmit={(e) => onSubmit(e)}>
-              <div className="form-group">
-                <input
-                  name="title"
-                  value={title}
-                  onChange={(e) => onChange(e)}
-                  type="text"
-                  class="form-control"
-                  placeholder="Title"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="publicationDate"
-                  value={publicationDate}
-                  onChange={(e) => onChange(e)}
-                  type="text"
-                  class="form-control"
-                  placeholder="Publication Date"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="pages"
-                  value={pages}
-                  onChange={(e) => onChange(e)}
-                  type="text"
-                  class="form-control"
-                  placeholder="Pages"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="author"
-                  value={author}
-                  onChange={(e) => onChange(e)}
-                  type="text"
-                  class="form-control"
-                  placeholder="Author"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="isbn"
-                  value={isbn}
-                  onChange={(e) => onChange(e)}
-                  type="text"
-                  class="form-control"
-                  placeholder="ISBN"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="price"
-                  value={price}
-                  onChange={(e) => onChange(e)}
-                  type="text"
-                  class="form-control"
-                  placeholder="Price"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="description"
-                  value={description}
-                  onChange={(e) => onChange(e)}
-                  style={{
-                    borderStyle: "solid",
-                    borderColor: "#bcbcbc",
-                    borderWidth: "2px",
-                    backgroundColor: "rgba(188, 188, 188, 0.25)",
-                  }}
-                  type="textarea"
-                  class="form-control"
-                  placeholder="About This Book"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  name="bookFile"
-                  onChange={(e) => onChange(e)}
-                  type="file"
-                  id="actual-btn"
-                  className="form-control"
-                  placeholder="Attach Book File"
-                  hidden
-                />
-                <label
-                  for="actual-btn"
-                  style={{
-                    borderStyle: "solid",
-                    borderColor: "#bcbcbc",
-                    borderWidth: "2px",
-                    backgroundColor: "rgba(188, 188, 188, 0.25)",
-                    padding: "5px",
-                  }}
-                >
-                  Attache Book File
-                </label>
-              </div>
-              <div className="form-group">
-                <input
-                  name="thumbnail"
-                  onChange={(e) => onChange(e)}
-                  type="file"
-                  id="actual-btn2"
-                  className="form-control"
-                  placeholder="Attach thumbnail"
-                  hidden
-                />
-                <label
-                  for="actual-btn2"
-                  style={{
-                    borderStyle: "solid",
-                    borderColor: "#bcbcbc",
-                    borderWidth: "2px",
-                    backgroundColor: "rgba(188, 188, 188, 0.25)",
-                    padding: "5px",
-                  }}
-                >
-                  Attach thumbnail
-                </label>
-              </div>
-              <div className="form-group">
-                <button className="btn btn-danger" type="submit">
-                  Send{"  "}
-                  <img src={addBookWhite} alt="" />{" "}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <Modal show={show} onHide={handleClose} centered>
-          <Modal.Body style={{ color: "#29BD11" }}>
-            Add Book Successful
-          </Modal.Body>
-        </Modal>
       </div>
     </div>
   );

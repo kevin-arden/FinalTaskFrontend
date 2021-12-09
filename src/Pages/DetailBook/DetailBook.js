@@ -4,6 +4,7 @@ import { AppContext } from "../../Context/globalContext";
 import { Modal } from "react-bootstrap";
 import { useParams, useHistory } from "react-router-dom";
 import { API } from "../../Config/api";
+import { Image } from "cloudinary-react";
 
 //Component
 import NavBar from "../../Components/NavBar";
@@ -116,10 +117,10 @@ const DetailBook = () => {
         <div className="col-md-9 detail-book">
           <div className="row">
             <div className="col-md-5">
-              <img
-                src={`http://localhost:5000/image/${book.thumbnail}`}
-                className="detail-image img-fluid"
-                alt=""
+              <Image
+                style={{ height: 540, width: 370 }}
+                cloudName="kev-cloud"
+                publicId={book.image_id}
               />
             </div>
             <div className="col-md-7">
@@ -144,9 +145,7 @@ const DetailBook = () => {
             <div className="col-md-9"></div>
             <div style={{ marginBottom: "20px" }} className="col-md-3">
               {owned ? (
-                <a
-                  href={`http://localhost:5000/pdf/${book.bookAttachment}`}
-                >
+                <a href={`http://localhost:5000/pdf/${book.bookAttachment}`}>
                   <button
                     // onClick={(e) => downloadBook(e)}
                     className="btn btn-primary btn-block"

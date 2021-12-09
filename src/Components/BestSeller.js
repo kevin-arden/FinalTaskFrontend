@@ -21,9 +21,9 @@ const BestSeller = ({ book }) => {
 
   const { id, thumbnail, title, author, description, price, image_id } = book;
 
-  const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(false);
-
+  
+  const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
@@ -80,6 +80,11 @@ const BestSeller = ({ book }) => {
           </div>
         </div>
       </div>
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Body style={{ color: "#29BD11" }}>
+          Please login first !
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

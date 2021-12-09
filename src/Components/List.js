@@ -1,9 +1,10 @@
 import React from "react";
 import "../list.css";
 import trashcan from "../Icon/trashcan.svg";
+import { Image } from "cloudinary-react";
 
 const List = ({ product, removeProductFromCart }) => {
-  const { id, price, title, thumbnail, author } = product;
+  const { id, price, title, thumbnail, author, image_id } = product;
   console.log(thumbnail);
   return (
     <li
@@ -13,14 +14,10 @@ const List = ({ product, removeProductFromCart }) => {
       }}
       class="list-group-item d-flex "
     >
-      <img
-        src={`http://localhost:5000/image/${thumbnail}`}
-        alt="image"
-        style={{
-          height: "175px",
-          width: "130px",
-          objectFit: "cover",
-        }}
+      <Image
+        style={{ height: 175, width: 130 }}
+        cloudName="kev-cloud"
+        publicId={image_id}
       />
       <div className="container-fluid">
         <h4 className="alignleft">
